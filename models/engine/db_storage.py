@@ -1,10 +1,9 @@
 import os
 import sys
 
-import MySQLdb
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 from models.base_model import Base, BaseModel
 
@@ -53,5 +52,9 @@ class DBStorage:
     
     def reload(self):
         Base.metadata.create_all(self.__engine)
-        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Session = scoped_session(session_factory)
         self.__session = Session()
+    
+    def close(self):
+        self.__session.close()
