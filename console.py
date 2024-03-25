@@ -3,8 +3,6 @@
 import cmd
 import sys
 
-from icecream import ic
-
 from models.__init__ import storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -158,8 +156,6 @@ class HBNBCommand(cmd.Cmd):
                     continue
             
             kwargs[key] = value
-        
-        ic(kwargs)
         
         new_instance = HBNBCommand.classes[class_name](**kwargs)
         storage.new(new_instance)
