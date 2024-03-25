@@ -149,14 +149,14 @@ class HBNBCommand(cmd.Cmd):
                     try:
                         value = float(value)
                     except ValueError:
-                        continue
+                        pass
                 else:
                     try:
                         value = int(value)
                     except ValueError:
-                        continue
+                        pass
 
-            kwargs[key] = value
+                kwargs[key] = value
         
         new_instance = HBNBCommand.classes[class_name](**kwargs)
         storage.new(new_instance)
