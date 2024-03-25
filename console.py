@@ -143,7 +143,6 @@ class HBNBCommand(cmd.Cmd):
                 value = value[1:-1]
                 value = value.replace('_', ' ')
                 value = value.replace('\\"', '"')
-                ic(value)
             
             if '.' in value:
                 try:
