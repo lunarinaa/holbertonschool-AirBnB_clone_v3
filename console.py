@@ -143,7 +143,8 @@ class HBNBCommand(cmd.Cmd):
                 value = value[1:-1]
                 value = value.replace('_', ' ')
                 value = value.replace('\\"', '"')
-                
+                ic(value)
+            
             if '.' in value:
                 try:
                     value = float(value)
@@ -154,8 +155,8 @@ class HBNBCommand(cmd.Cmd):
                     value = int(value)
                 except ValueError:
                     continue
-            
-            kwargs[key] = value
+
+        kwargs[key] = value
         
         new_instance = HBNBCommand.classes[class_name](**kwargs)
         storage.new(new_instance)
