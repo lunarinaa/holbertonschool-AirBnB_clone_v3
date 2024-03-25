@@ -32,15 +32,12 @@ class DBStorage:
     def all(self, cls=None):
         session = self.__session
         
-        result = {}
-        
         if cls:
-            result[cls.__name__ + '.' + cls.id] = session.query(cls).all()
-            return result
+            result = self.__session.query(State).all()
         else:
             for c in BaseModel.__subclasses__():
                 result[c.__name__ + '.' + c.id] = session.query(c).all()
-            return result
+        return {"{}.{}".format(type(o).__name__, o.id): o for o in result}
     
     def new(self, obj):
         self.__session.add(obj)
