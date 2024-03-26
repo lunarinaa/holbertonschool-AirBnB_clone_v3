@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
-import os
-from dotenv import load_dotenv
 from sqlalchemy import Column, ForeignKey, String
 from sqlalchemy.orm import relationship
 

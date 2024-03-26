@@ -1,7 +1,6 @@
 import os
 import sys
 
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
@@ -9,12 +8,11 @@ from models.base_model import Base, BaseModel
 from models.city import City
 from models.state import State
 
-load_dotenv()
 
-USER = os.environ['HBNB_MYSQL_USER']
-PASSWORD = os.environ['HBNB_MYSQL_PWD']
-HOST = os.environ['HBNB_MYSQL_HOST']
-DB = os.environ['HBNB_MYSQL_DB']
+USER = os.getenv('HBNB_MYSQL_USER')
+PASSWORD = os.getenv('HBNB_MYSQL_PWD')
+HOST = os.getenv('HBNB_MYSQL_HOST')
+DB = os.getenv('HBNB_MYSQL_DB')
 
 
 class DBStorage:
