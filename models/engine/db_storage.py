@@ -29,15 +29,19 @@ class DBStorage:
         if 'test' in sys.argv:
             Base.metadata.drop_all(self.__engine)
     
-    def all(self, cls=None):
-        session = self.__session
-        
-        if cls:
-            result = self.__session.query(State).all()
+    def all(self, cls=None):        
+        if cls is None:
+            objs = self.__session.query(State).all()
+            objs.extend(self.__session.query(City).all())
+            # objs.extend(self.__session.query(User).all())
+            # objs.extend(self.__session.query(Place).all())
+            # objs.extend(self.__session.query(Review).all())
+            # objs.extend(self.__session.query(Amenity).all())
         else:
-            for c in BaseModel.__subclasses__():
-                result[c.__name__ + '.' + c.id] = session.query(c).all()
-        return {"{}.{}".format(type(o).__name__, o.id): o for o in result}
+            if type(cls) == str:
+                cls = eval(cls)
+            objs = self.__session.query(cls)
+        return {"{}.{}".format(type(obj).__name__, obj.id): obj for obj in objs}
     
     def new(self, obj):
         self.__session.add(obj)
