@@ -13,8 +13,9 @@ class BaseModel:
     id = Column(String(60), primary_key=True, nullable=False)
     created_at = Column(DateTime, default=datetime.now(), nullable=False)
     updated_at = Column(DateTime, default=datetime.now(), nullable=False)
-    
+
     """A base class for all hbnb models"""
+
     def __init__(self, *args, **kwargs):
         """Initialize a new BaseModel."""
 
@@ -29,12 +30,13 @@ class BaseModel:
 
     def __str__(self):
         """Returns a string representation of the instance"""
-        cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        cls = (str(type(self)).split(".")[-1]).split("'")[0]
+        return "[{}] ({}) {}".format(cls, self.id, self.__dict__)
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
         from models import storage
+
         self.updated_at = datetime.now()
         storage.save()
 
@@ -42,12 +44,13 @@ class BaseModel:
         """Convert instance into dict format"""
         dictionary = self.__dict__.copy()
         dictionary["__class__"] = str(type(self).__name__)
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
-        dictionary.pop('_sa_instance_state', None)
+        dictionary["created_at"] = self.created_at.isoformat()
+        dictionary["updated_at"] = self.updated_at.isoformat()
+        dictionary.pop("_sa_instance_state", None)
         return dictionary
 
     def delete(self):
         """Delete the current instance from the storage"""
         from models import storage
+
         storage.delete(self)

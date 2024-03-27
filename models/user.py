@@ -11,7 +11,9 @@ class User(BaseModel, Base):
 
     __tablename__ = "users"
 
-    email = Column(String(128), nullable=False)
-    password = Column(String(128), nullable=False)
-    first_name = Column(String(128))
-    last_name = Column(String(128))
+    email: Mapped[str] = mapped_column(String(128), nullable=False)
+    password: Mapped[str] = mapped_column(String(128), nullable=False)
+    first_name: Mapped[str] = mapped_column(String(128))
+    last_name: Mapped[str] = mapped_column(String(128))
+    # places: Mapped["Place"] = relationship("Place", backref="user", cascade="delete")
+    # reviews: Mapped["Review"] = relationship("Review", backref="user", cascade="delete")
