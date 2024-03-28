@@ -52,6 +52,9 @@ class Place(BaseModel, Base):
     reviews: Mapped["Review"] = relationship(
         "Review", backref="place", cascade="delete"
     )
+    amenities: Mapped["Amenity"] = relationship(
+        "Amenity", secondary=place_amenity, viewonly=False
+    )
 
     amenity_ids = []
 
