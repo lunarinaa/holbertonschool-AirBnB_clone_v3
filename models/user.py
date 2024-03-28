@@ -15,7 +15,7 @@ class User(BaseModel, Base):
 
     email: Mapped[str] = mapped_column(String(128), nullable=False)
     password: Mapped[str] = mapped_column(String(128), nullable=False)
-    first_name: Mapped[str] = mapped_column(String(128))
-    last_name: Mapped[str] = mapped_column(String(128))
-    places: Mapped["Place"] = relationship("Place", backref="user", cascade="delete")
-    reviews: Mapped["Review"] = relationship("Review", backref="user", cascade="delete")
+    first_name: Mapped[str] = mapped_column(String(128), nullable=True)
+    last_name: Mapped[str] = mapped_column(String(128), nullable=True)
+    # places: Mapped["Place"] = relationship("Place", backref="user", cascade="delete")
+    # reviews: Mapped["Review"] = relationship("Review", backref="user", cascade="delete")
