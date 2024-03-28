@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 """This module defines a class User"""
-from sqlalchemy import Column, String
+from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models.base_model import Base, BaseModel
+from models.place import Place
+from models.review import Review
 
 
 class User(BaseModel, Base):
@@ -15,5 +17,5 @@ class User(BaseModel, Base):
     password: Mapped[str] = mapped_column(String(128), nullable=False)
     first_name: Mapped[str] = mapped_column(String(128))
     last_name: Mapped[str] = mapped_column(String(128))
-    # places: Mapped["Place"] = relationship("Place", backref="user", cascade="delete")
-    # reviews: Mapped["Review"] = relationship("Review", backref="user", cascade="delete")
+    places: Mapped["Place"] = relationship("Place", backref="user", cascade="delete")
+    reviews: Mapped["Review"] = relationship("Review", backref="user", cascade="delete")
