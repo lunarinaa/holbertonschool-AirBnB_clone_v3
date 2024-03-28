@@ -1,10 +1,33 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-from sqlalchemy import ForeignKey, String
+import os
+
+from sqlalchemy import ForeignKey, String, Table
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+import models
+from models.amenity import Amenity
 from models.base_model import Base, BaseModel
 from models.review import Review
+
+place_amenity = Table(
+    "place_amenity",
+    Base.metadata,
+    mapped_column(
+        "place_id",
+        String(60),
+        ForeignKey("places.id"),
+        primary_key=True,
+        nullable=False,
+    ),
+    mapped_column(
+        "amenity_id",
+        String(60),
+        ForeignKey("amenities.id"),
+        primary_key=True,
+        nullable=False,
+    ),
+)
 
 
 class Place(BaseModel, Base):
@@ -29,3 +52,21 @@ class Place(BaseModel, Base):
     reviews: Mapped["Review"] = relationship(
         "Review", backref="place", cascade="delete"
     )
+
+    amenity_ids = []
+    
+    if os.getenv("DB_STORAGE_TYPE") != "db":
+        @property
+        def amenities(self):
+            """Getter for amenities"""
+            amenity_list = []
+            for amenity in list(models.storage.all(Amenity).values()):
+                if amenity.id in self.amenity_ids:
+                    amenity_list.append(amenity)
+            return amenity_list
+        
+        @amenities.setter
+        def amenities(self, value):
+            """Setter for amenities"""
+            if isinstance(value, Amenity):
+                self.amenity_ids.append(value.id)
