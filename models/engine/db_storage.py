@@ -7,9 +7,9 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from models.base_model import Base
 from models.city import City
 from models.place import Place
+from models.review import Review
 from models.state import State
 from models.user import User
-from models.review import Review
 
 USER = os.getenv("HBNB_MYSQL_USER")
 PASSWORD = os.getenv("HBNB_MYSQL_PWD")
