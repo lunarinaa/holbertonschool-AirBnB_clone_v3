@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Place Module for HBNB project """
+"""Defines the Place class."""
 import os
 
 from sqlalchemy import Column, ForeignKey, String, Table
@@ -31,7 +31,7 @@ place_amenity = Table(
 
 
 class Place(BaseModel, Base):
-    """A place to stay"""
+    """Represents a Place for a MySQL database."""
 
     __tablename__ = "places"
 
@@ -49,20 +49,29 @@ class Place(BaseModel, Base):
     price_by_night: Mapped[int] = mapped_column(default=0, nullable=False)
     latitude: Mapped[float] = mapped_column(nullable=True)
     longitude: Mapped[float] = mapped_column(nullable=True)
-    reviews: Mapped["Review"] = relationship(
+    reviews = relationship(
         "Review", backref="place", cascade="delete"
     )
-    amenities: Mapped["Amenity"] = relationship(
-        "Amenity", secondary="place_amenity", viewonly=False
+    amenities = relationship(
+        "Amenity", secondary=place_amenity, viewonly=False, overlaps="place_amenities"
     )
 
     amenity_ids = []
 
-    if os.getenv("DB_STORAGE_TYPE") != "db":
+    if os.getenv("HBNB_TYPE_STORAGE", None) != "db":
+
+        @property
+        def reviews(self):
+            """Get a list of all linked Reviews."""
+            review_list = []
+            for review in list(models.storage.all(Review).values()):
+                if review.place_id == self.id:
+                    review_list.append(review)
+            return review_list
 
         @property
         def amenities(self):
-            """Getter for amenities"""
+            """Get/set linked Amenities."""
             amenity_list = []
             for amenity in list(models.storage.all(Amenity).values()):
                 if amenity.id in self.amenity_ids:
@@ -71,6 +80,5 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, value):
-            """Setter for amenities"""
-            if isinstance(value, Amenity):
+            if type(value) == Amenity:
                 self.amenity_ids.append(value.id)
