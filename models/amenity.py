@@ -12,4 +12,7 @@ class Amenity(BaseModel, Base):
     __tablename__ = "amenities"
 
     name: Mapped[str] = mapped_column(String(128), nullable=False)
-    place_amenities: Mapped["Place"] = relationship("Place", secondary="place_amenity", overlaps='place_amenity', viewonly=False)
+    place_amenities: Mapped["Place"] = relationship(
+        "Place", secondary="place_amenity",
+        overlaps="place_amenity", viewonly=False
+    )

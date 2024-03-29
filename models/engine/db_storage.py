@@ -39,10 +39,11 @@ class DBStorage:
             objs.extend(self.__session.query(Review).all())
             objs.extend(self.__session.query(Amenity).all())
         else:
-            if type(cls) == str:
+            if type(cls) is str:
                 cls = eval(cls)
             objs = self.__session.query(cls)
-        return {"{}.{}".format(type(obj).__name__, obj.id): obj for obj in objs}
+        return {"{}.{}".format(type(obj).__name__, obj.id): obj
+                for obj in objs}
 
     def new(self, obj):
         self.__session.add(obj)
@@ -56,7 +57,8 @@ class DBStorage:
 
     def reload(self):
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
 

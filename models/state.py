@@ -13,4 +13,5 @@ class State(BaseModel, Base):
     __tablename__ = "states"
 
     name: Mapped[str] = mapped_column(String(128), nullable=False)
-    cities: Mapped["City"] = relationship("City", backref="state", cascade="delete")
+    cities: Mapped["City"] = relationship("City", backref="state",
+                                          cascade="delete")

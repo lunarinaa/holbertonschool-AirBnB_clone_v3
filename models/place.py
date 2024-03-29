@@ -49,11 +49,10 @@ class Place(BaseModel, Base):
     price_by_night: Mapped[int] = mapped_column(default=0, nullable=False)
     latitude: Mapped[float] = mapped_column(nullable=True)
     longitude: Mapped[float] = mapped_column(nullable=True)
-    reviews = relationship(
-        "Review", backref="place", cascade="delete"
-    )
+    reviews = relationship("Review", backref="place", cascade="delete")
     amenities = relationship(
-        "Amenity", secondary=place_amenity, viewonly=False, overlaps="place_amenities"
+        "Amenity", secondary=place_amenity, viewonly=False,
+        overlaps="place_amenities"
     )
 
     amenity_ids = []
@@ -80,5 +79,5 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, value):
-            if type(value) == Amenity:
+            if isinstance(value, Amenity):
                 self.amenity_ids.append(value.id)
