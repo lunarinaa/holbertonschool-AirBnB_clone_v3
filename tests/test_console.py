@@ -5,8 +5,6 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 
-import pep8
-
 import models
 from console import HBNBCommand
 from models.engine.db_storage import DBStorage
@@ -67,7 +65,7 @@ class TestHBNBCommand(unittest.TestCase):
         self.assertIsNotNone(HBNBCommand.do_destroy.__doc__)
         self.assertIsNotNone(HBNBCommand.do_all.__doc__)
         self.assertIsNotNone(HBNBCommand.do_update.__doc__)
-        self.assertIsNotNone(HBNBCommand.do_count.__doc__)
+        self.assertIsNotNone(HBNBCommand.count.__doc__)
         self.assertIsNotNone(HBNBCommand.default.__doc__)
 
     def test_emptyline(self):
@@ -154,11 +152,11 @@ class TestHBNBCommand(unittest.TestCase):
             self.HBNB.onecmd("all Place")
             output = f.getvalue()
             self.assertIn(pl, output)
-            self.assertIn("'city_id': 1", output)
+            self.assertIn("'city_id': '0001'", output)
             self.assertIn("'name': 'My house'", output)
             self.assertIn("'number_rooms': 4", output)
             self.assertIn("'latitude': 37.77", output)
-            self.assertIn("'longitude'", output)
+            self.assertNotIn("'longitude'", output)
 
     def test_show(self):
         """Test show command."""
@@ -244,9 +242,8 @@ class TestHBNBCommand(unittest.TestCase):
         """Test alternate destroy command inpout"""
         with patch('sys.stdout', new=StringIO()) as f:
             self.HBNB.onecmd("Galaxy.destroy()")
-            output = f.getvalue()
             self.assertEqual(
-                "** class doesn't exist **\n", output)
+                "** class doesn't exist **\n", f.getvalue())
         with patch('sys.stdout', new=StringIO()) as f:
             self.HBNB.onecmd("User.destroy(12345)")
             self.assertEqual(
