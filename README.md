@@ -1,172 +1,150 @@
-<center> <h1>HBNB - The Console</h1> </center>
+<p align="center">
+ <h1 align="center"> AirBnB clone - The console </h1>
+ <a href="" rel="noopener">
+ <img src="https://github.com/bdbaraban/AirBnB_clone_v2/raw/master/assets/hbnb_logo.png">
 
-This repository contains the initial stage of a student project to build a clone of the AirBnB website. This stage implements a backend interface, or console, to manage program data. Console commands allow the user to create, update, and destroy objects, as well as manage file storage. Using a system of JSON serialization/deserialization, storage is persistent between sessions.
+<div align="center">
+
+[![Status](https://img.shields.io/badge/status-active-success.svg)]()
+
+</div>
 
 ---
 
-<center><h3>Repository Contents by Project Task</h3> </center>
+<p align="center"> This project aims to develop a command-line interpreter for managing objects in an AirBnB-like application. The interpreter facilitates the creation, storage, retrieval, updating, and deletion of various objects such as users, states, cities, and places.
+    <br> 
+</p>
 
-| Tasks                         | Files                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                         |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| 0: Authors/README File        | [AUTHORS](https://github.com/justinmajetich/AirBnB_clone/blob/dev/AUTHORS)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Project authors                                                                                     |
-| 1: Pep8                       | N/A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | All code is pep8 compliant                                                                          |
-| 2: Unit Testing               | [/tests](https://github.com/justinmajetich/AirBnB_clone/tree/dev/tests)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | All class-defining modules are unittested                                                           |
-| 3. Make BaseModel             | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py)                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Defines a parent class to be inherited by all model classes                                         |
-| 4. Update BaseModel w/ kwargs | [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py)                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Add functionality to recreate an instance of a class from a dictionary representation               |
-| 5. Create FileStorage class   | [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/\_ _init_ \_.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/__init__.py) [/models/base_model.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/base_model.py)                                                                                                                                                                                                                                       | Defines a class to manage persistent file storage system                                            |
-| 6. Console 0.0.1              | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Add basic functionality to console program, allowing it to quit, handle empty lines and ^D          |
-| 7. Console 0.1                | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | Update the console with methods allowing the user to create, destroy, show, and update stored data  |
-| 8. Create User class          | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py) [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py)                                                                                                                                                                                                                                                                        | Dynamically implements a user class                                                                 |
-| 9. More Classes               | [/models/user.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/user.py) [/models/place.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/place.py) [/models/city.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/city.py) [/models/amenity.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/amenity.py) [/models/state.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/state.py) [/models/review.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/review.py) | Dynamically implements more classes                                                                 |
-| 10. Console 1.0               | [console.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/console.py) [/models/engine/file_storage.py](https://github.com/justinmajetich/AirBnB_clone/blob/dev/models/engine/file_storage.py)                                                                                                                                                                                                                                                                                                                                                                  | Update the console and file storage system to work dynamically with all classes update file storage |
+## Table of Contents 📝
 
-<br>
-<br>
-<center> <h2>General Use</h2> </center>
+- [About](#about)
+- [Getting Started](#getting_started)
+- [Usage](#usage)
+- [Contributing](../CONTRIBUTING.md)
+- [Authors](#authors)
 
-1. First clone this repository.
+## About <a name = "about"></a> 🧐
 
-2. Once the repository is cloned locate the "console.py" file and run it as follows:
+The purpose of this project is to develop a command-line interpreter tailored for managing objects within an AirBnB-like application. By creating this interpreter, users can efficiently create, store, retrieve, update, and delete various entities such as users, states, cities, and places, all from the convenience of their terminal. The project encompasses the implementation of a robust object-oriented structure, with a parent class (BaseModel) handling fundamental functionalities like initialization and serialization. Through a streamlined serialization flow, the interpreter seamlessly converts object instances to dictionaries, JSON strings, and ultimately to files, ensuring efficient storage and retrieval of application data.
 
-```
-/AirBnB_clone$ ./console.py
-```
+![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone/blob/main/assets/815046647d23428a14ca.png?raw=true)
 
-4. When this command is run the following prompt should appear:
+This project serves as the foundation for the larger goal of building a fully functional AirBnB clone web application. By establishing a solid groundwork including object classes, serialization mechanisms, and storage engines, future phases of the project such as HTML/CSS templating, database integration, API development, and front-end implementation can be built upon with ease. Additionally, comprehensive unit tests are provided to validate the functionality of each component, ensuring the reliability and robustness of the application throughout its development lifecycle. Ultimately, this project aims to deliver a powerful yet user-friendly tool for managing AirBnB-like data, laying the groundwork for a seamless and immersive web experience for both hosts and guests.
+
+## Getting Started <a name = "getting_started"></a> 🏁
+
+1.Clone the repo
 
 ```
-(hbnb)
-```
-
-5. This prompt designates you are in the "HBnB" console. There are a variety of commands available within the console program.
-
-##### Commands
-
-    * create - Creates an instance based on given class
-
-    * destroy - Destroys an object based on class and UUID
-
-    * show - Shows an object based on class and UUID
-
-    * all - Shows all objects the program has access to, or all objects of a given class
-
-    * update - Updates existing attributes an object based on class name and UUID
-
-    * quit - Exits the program (EOF will as well)
-
-##### Alternative Syntax
-
-Users are able to issue a number of console command using an alternative syntax:
-
-    Usage: <class_name>.<command>([<id>[name_arg value_arg]|[kwargs]])
-
-Advanced syntax is implemented for the following commands:
-
-    * all - Shows all objects the program has access to, or all objects of a given class
-
-    * count - Return number of object instances by class
-
-    * show - Shows an object based on class and UUID
-
-    * destroy - Destroys an object based on class and UUID
-
-    * update - Updates existing attributes an object based on class name and UUID
-
-<br>
-<br>
-<center> <h2>Examples</h2> </center>
-<h3>Primary Command Syntax</h3>
-
-###### Example 0: Create an object
-
-Usage: create <class_name>
+$ git clone https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone.git
 
 ```
-(hbnb) create BaseModel
+
+2.run console.py
+
+```
+$ ./console.py
+```
+
+## Requirements 📃
+
+No requirements needed on this stage of project :)
+
+## Running the tests <a name = "tests"></a> 🔧
+
+Unittests for the HolbertonBnB project are defined in the tests folder. To run the entire test suite simultaneously, execute the following command:
+
+```
+$ python3 unittest -m discover tests
+```
+
+Alternatively, you can specify a single test file to run at a time:
+
+```
+$ python3 unittest -m tests/test_console.py
+```
+
+## Usage of console <a name="usage"></a> 💻
+
+The console is a command line interpreter that permits management of the backend of HolbertonBnB. It can be used to handle and manipulate all classes utilized by the application (achieved by calls on the storage object defined above).
+
+### Using the Console
+
+The HolbertonBnB console can be run both interactively and non-interactively. To run the console in non-interactive mode, pipe any command(s) into an execution of the file console.py at the command line.
+
+![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone/blob/main/assets/help.gif?raw=true)
+
+Alternatively, to use the HolbertonBnB console in interactive mode, run the file console.py by itself:
+
+```
+$ ./console.py
+```
+
+To quit the console, enter the command quit, or input an EOF signal (ctrl-D).
+
+```
+$ ./console.py
+(hbnb) quit
+$
 ```
 
 ```
-(hbnb) create BaseModel
-3aa5babc-efb6-4041-bfe9-3cc9727588f8
-(hbnb)
+$ ./console.py
+(hbnb) EOF
+$
 ```
 
-###### Example 1: Show an object
+### Console Commands
 
-Usage: show <class_name> <\_id>
+The HolbertonBnB console supports the following commands:
 
-```
-(hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-[BaseModel] (3aa5babc-efb6-4041-bfe9-3cc9727588f8) {'id': '3aa5babc-efb6-4041-bfe9-3cc9727588f8', 'created_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96959),
-'updated_at': datetime.datetime(2020, 2, 18, 14, 21, 12, 96971)}
-(hbnb)
-```
+#### create
 
-###### Example 2: Destroy an object
+- Usage: `create <class>`
+  Creates a new instance of a given class. The class' ID is printed and the instance is saved to the file `file.json`
 
-Usage: destroy <class_name> <\_id>
+![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone/blob/main/assets/create.gif?raw=true)
 
-```
-(hbnb) destroy BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-(hbnb) show BaseModel 3aa5babc-efb6-4041-bfe9-3cc9727588f8
-** no instance found **
-(hbnb)
-```
+#### show
 
-###### Example 3: Update an object
+- Usage: show `<class> <id>` or `<class>.show(<id>)`
+  Prints the string representation of a class instance based on a given id.
 
-Usage: update <class_name> <\_id>
+![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone/blob/main/assets/show.gif?raw=true)
 
-```
-(hbnb) update BaseModel b405fc64-9724-498f-b405-e4071c3d857f first_name "person"
-(hbnb) show BaseModel b405fc64-9724-498f-b405-e4071c3d857f
-[BaseModel] (b405fc64-9724-498f-b405-e4071c3d857f) {'id': 'b405fc64-9724-498f-b405-e4071c3d857f', 'created_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729889),
-'updated_at': datetime.datetime(2020, 2, 18, 14, 33, 45, 729907), 'first_name': 'person'}
-(hbnb)
-```
+#### destroy
 
-<h3>Alternative Syntax</h3>
+- Usage: destroy `<class> <id>` or `<class>.destroy(<id>)`
+  Deletes a class instance based on a given id.
 
-###### Example 0: Show all User objects
+![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone/blob/main/assets/destory.gif?raw=true)
 
-Usage: <class_name>.all()
+#### all
 
-```
-(hbnb) User.all()
-["[User] (99f45908-1d17-46d1-9dd2-b7571128115b) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 34, 92071), 'id': '99f45908-1d17-46d1-9dd2-b7571128115b', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 34, 92056)}", "[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
+- Usage: all or all `<class>` or `<class>.all()`
+  Prints the string representations of all instances of a given class. If no class name is provided, the command prints all instances of every class.
 
-###### Example 1: Destroy a User
+![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone/blob/main/assets/all.gif?raw=true)
 
-Usage: <class_name>.destroy(<\_id>)
+#### count
 
-```
-(hbnb) User.destroy("99f45908-1d17-46d1-9dd2-b7571128115b")
-(hbnb)
-(hbnb) User.all()
-(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
+- Usage: count `<class>.count()`
+  Retrieves the number of instances of a given class.
 
-###### Example 2: Update User (by attribute)
+![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone/blob/main/assets/count.gif?raw=true)
 
-Usage: <class_name>.update(<\_id>, <attribute_name>, <attribute_value>)
+#### update
 
-```
-(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", name "Todd the Toad")
-(hbnb)
-(hbnb) User.all()
-(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'name': 'Todd the Toad', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
+- Usage: update `<class> <id> <attribute name> "<attribute value>"` or `<class name>.update(<id>, <dictionary representation>)`
+  Updates a class instance based on a given id with a given key/value attribute pair or dictionary of attribute pairs. If update is called with a single key/value attribute pair, only "simple" attributes can be updated (ie. not id, created_at, and updated_at).
 
-###### Example 3: Update User (by dictionary)
+![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone/blob/main/assets/update.gif?raw=true)
 
-Usage: <class_name>.update(<\_id>, <dictionary>)
+## Authors <a name = "authors"></a> ✍️
 
-```
-(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", {'name': 'Fred the Frog', 'age': 9})
-(hbnb)
-(hbnb) User.all()
-(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'name': 'Fred the Frog', 'age': 9, 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
-```
+- [@VoiceOfDarkness](https://github.com/VoiceOfDarkness) - Initial Work
+- [@Somed-1](https://github.com/Somed-1) - Test Support & great Person
 
-<br>
+### Special Credits:
+
+> You really don't need to know, but here's the link if you're curious:[link](https://www.youtube.com/watch?v=uwmeH6Rnj2E)
