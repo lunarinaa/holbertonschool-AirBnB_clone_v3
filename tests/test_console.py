@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """Defines unittests for console.py."""
 import os
-import pep8
 import unittest
-import models
-from unittest.mock import patch
 from io import StringIO
+from unittest.mock import patch
+
+import pep8
+
+import models
 from console import HBNBCommand
 from models.engine.db_storage import DBStorage
 from models.engine.file_storage import FileStorage

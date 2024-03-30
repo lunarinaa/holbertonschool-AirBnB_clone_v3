@@ -89,7 +89,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_init_args_kwargs(self):
         """Test initialization with args and kwargs."""
-        dt = datetime.utcnow()
+        dt = datetime.now()
         bm = BaseModel("1", id="5", created_at=dt.isoformat())
         self.assertEqual(bm.id, "5")
         self.assertEqual(bm.created_at, dt)
