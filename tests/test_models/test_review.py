@@ -37,7 +37,7 @@ class TestCity(unittest.TestCase):
         cls.state = State(name="California")
         cls.city = City(name="San Francisco", state_id=cls.state.id)
 
-        if type(models.storage) == DBStorage:
+        if type(models.storage) is DBStorage:
             cls.dbstorage = DBStorage()
             Base.metadata.create_all(cls.dbstorage._DBStorage__engine)
             Session = sessionmaker(bind=cls.dbstorage._DBStorage__engine)
@@ -61,7 +61,7 @@ class TestCity(unittest.TestCase):
         del cls.state
         del cls.city
         del cls.filestorage
-        if type(models.storage) == DBStorage:
+        if type(models.storage) is DBStorage:
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
 
@@ -85,7 +85,7 @@ class TestCity(unittest.TestCase):
         self.assertTrue(hasattr(ct, "name"))
         self.assertTrue(hasattr(ct, "state_id"))
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_nullable_attributes(self):
         """Check that relevant DBStorage attributes are non-nullable."""
@@ -99,7 +99,7 @@ class TestCity(unittest.TestCase):
             self.dbstorage._DBStorage__session.commit()
         self.dbstorage._DBStorage__session.rollback()
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_state_relationship_deletes(self):
         """Test delete cascade in City-State relationship."""
@@ -154,7 +154,7 @@ class TestCity(unittest.TestCase):
         self.assertIn("'name': '{}'".format(self.city.name), s)
         self.assertIn("'state_id': '{}'".format(self.city.state_id), s)
 
-    @unittest.skipIf(type(models.storage) == DBStorage,
+    @unittest.skipIf(type(models.storage) is DBStorage,
                      "Testing DBStorage")
     def test_save_filestorage(self):
         """Test save method with FileStorage."""
@@ -164,7 +164,7 @@ class TestCity(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn("City." + self.city.id, f.read())
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_save_dbstorage(self):
         """Test save method with DBStorage."""

@@ -47,7 +47,7 @@ class TestPlace(unittest.TestCase):
         cls.amenity = Amenity(name="water", place=cls.place.id)
         cls.filestorage = FileStorage()
 
-        if type(models.storage) == DBStorage:
+        if type(models.storage) is DBStorage:
             cls.dbstorage = DBStorage()
             Base.metadata.create_all(cls.dbstorage._DBStorage__engine)
             Session = sessionmaker(bind=cls.dbstorage._DBStorage__engine)
@@ -75,7 +75,7 @@ class TestPlace(unittest.TestCase):
         del cls.review
         del cls.amenity
         del cls.filestorage
-        if type(models.storage) == DBStorage:
+        if type(models.storage) is DBStorage:
             cls.dbstorage._DBStorage__session.close()
             del cls.dbstorage
 
@@ -106,7 +106,7 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(hasattr(us, "latitude"))
         self.assertTrue(hasattr(us, "longitude"))
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_nullable_attributes(self):
         """Test that email attribute is non-nullable."""
@@ -126,7 +126,7 @@ class TestPlace(unittest.TestCase):
             self.dbstorage._DBStorage__session.commit()
         self.dbstorage._DBStorage__session.rollback()
 
-    @unittest.skipIf(type(models.storage) == DBStorage,
+    @unittest.skipIf(type(models.storage) is DBStorage,
                      "Testing DBStorage")
     def test_reviews_filestorage(self):
         """Test reviews attribute."""
@@ -136,7 +136,7 @@ class TestPlace(unittest.TestCase):
         self.assertTrue(list, type(reviews))
         self.assertIn(self.review, reviews)
 
-    @unittest.skipIf(type(models.storage) == DBStorage,
+    @unittest.skipIf(type(models.storage) is DBStorage,
                      "Testing DBStorage")
     def test_amenities(self):
         """Test amenities attribute."""
@@ -182,7 +182,7 @@ class TestPlace(unittest.TestCase):
         self.assertIn("'user_id': '{}'".format(self.place.user_id), s)
         self.assertIn("'name': '{}'".format(self.place.name), s)
 
-    @unittest.skipIf(type(models.storage) == DBStorage,
+    @unittest.skipIf(type(models.storage) is DBStorage,
                      "Testing DBStorage")
     def test_save_filestorage(self):
         """Test save method with FileStorage."""
@@ -192,7 +192,7 @@ class TestPlace(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn("Place." + self.place.id, f.read())
 
-    @unittest.skipIf(type(models.storage) == FileStorage,
+    @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_save_dbstorage(self):
         """Test save method with DBStorage."""
