@@ -1,17 +1,19 @@
 #!/usr/bin/python3
 """Defines unnittests for models/user.py."""
 import os
-import pep8
-import models
-import MySQLdb
 import unittest
 from datetime import datetime
-from models.base_model import Base, BaseModel
-from models.user import User
-from models.engine.db_storage import DBStorage
-from models.engine.file_storage import FileStorage
+
+import MySQLdb
+import pep8
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm import sessionmaker
+
+import models
+from models.base_model import Base, BaseModel
+from models.engine.db_storage import DBStorage
+from models.engine.file_storage import FileStorage
+from models.user import User
 
 
 class TestUser(unittest.TestCase):
@@ -114,7 +116,7 @@ class TestUser(unittest.TestCase):
 
     def test_init_args_kwargs(self):
         """Test initialization with args and kwargs."""
-        dt = datetime.utcnow()
+        dt = datetime.now()
         st = User("1", id="5", created_at=dt.isoformat())
         self.assertEqual(st.id, "5")
         self.assertEqual(st.created_at, dt)
