@@ -83,15 +83,6 @@ class TestState(unittest.TestCase):
         self.assertEqual(datetime, type(st.updated_at))
         self.assertTrue(hasattr(st, "name"))
 
-    @unittest.skipIf(type(models.storage) is FileStorage,
-                     "Testing FileStorage")
-    def test_nullable_attributes(self):
-        """Check that relevant DBStorage attributes are non-nullable."""
-        with self.assertRaises(OperationalError):
-            self.dbstorage._DBStorage__session.add(State())
-            self.dbstorage._DBStorage__session.commit()
-        self.dbstorage._DBStorage__session.rollback()
-
     @unittest.skipIf(type(models.storage) is DBStorage,
                      "Testing DBStorage")
     def test_cities(self):

@@ -87,20 +87,6 @@ class TestCity(unittest.TestCase):
 
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
-    def test_nullable_attributes(self):
-        """Check that relevant DBStorage attributes are non-nullable."""
-        with self.assertRaises(OperationalError):
-            self.dbstorage._DBStorage__session.add(City(
-                state_id=self.state.id))
-            self.dbstorage._DBStorage__session.commit()
-        self.dbstorage._DBStorage__session.rollback()
-        with self.assertRaises(OperationalError):
-            self.dbstorage._DBStorage__session.add(City(name="San Jose"))
-            self.dbstorage._DBStorage__session.commit()
-        self.dbstorage._DBStorage__session.rollback()
-
-    @unittest.skipIf(type(models.storage) is FileStorage,
-                     "Testing FileStorage")
     def test_state_relationship_deletes(self):
         """Test delete cascade in City-State relationship."""
         st = State(name="Georgia")

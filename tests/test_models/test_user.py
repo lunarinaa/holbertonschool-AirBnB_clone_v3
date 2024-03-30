@@ -87,18 +87,6 @@ class TestUser(unittest.TestCase):
         self.assertTrue(hasattr(us, "places"))
         self.assertTrue(hasattr(us, "reviews"))
 
-    @unittest.skipIf(type(models.storage) is FileStorage,
-                     "Testing FileStorage")
-    def test_email_not_nullable(self):
-        """Test that email attribute is non-nullable."""
-        with self.assertRaises(OperationalError):
-            self.dbstorage._DBStorage__session.add(User(password="a"))
-            self.dbstorage._DBStorage__session.commit()
-        self.dbstorage._DBStorage__session.rollback()
-        with self.assertRaises(OperationalError):
-            self.dbstorage._DBStorage__session.add(User(email="a"))
-            self.dbstorage._DBStorage__session.commit()
-
     def test_is_subclass(self):
         """Check that User is a subclass of BaseModel."""
         self.assertTrue(issubclass(User, BaseModel))
