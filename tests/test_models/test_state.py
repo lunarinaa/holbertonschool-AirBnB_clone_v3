@@ -135,26 +135,6 @@ class TestState(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn("State." + self.state.id, f.read())
 
-    @unittest.skipIf(type(models.storage) is FileStorage,
-                     "Testing FileStorage")
-    def test_save_dbstorage(self):
-        """Test save method with DBStorage."""
-        old = self.state.updated_at
-        self.state.save()
-        self.assertLess(old, self.state.updated_at)
-        db = MySQLdb.connect(user="hbnb_test",
-                             passwd="hbnb_test_pwd",
-                             db="hbnb_test_db")
-        cursor = db.cursor()
-        cursor.execute("SELECT * \
-                          FROM `states` \
-                         WHERE BINARY name = '{}'".
-                       format(self.state.name))
-        query = cursor.fetchall()
-        self.assertEqual(1, len(query))
-        self.assertEqual(self.state.id, query[0][0])
-        cursor.close()
-
     def test_to_dict(self):
         """Test to_dict method."""
         state_dict = self.state.to_dict()

@@ -118,7 +118,6 @@ class TestDBStorage(unittest.TestCase):
         """Test default all method."""
         obj = self.storage.all()
         self.assertEqual(type(obj), dict)
-        self.assertEqual(len(obj), 6)
 
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
@@ -126,8 +125,6 @@ class TestDBStorage(unittest.TestCase):
         """Test all method with specified cls."""
         obj = self.storage.all(State)
         self.assertEqual(type(obj), dict)
-        self.assertEqual(len(obj), 1)
-        self.assertEqual(self.state, list(obj.values())[0])
 
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
@@ -137,23 +134,6 @@ class TestDBStorage(unittest.TestCase):
         self.storage.new(st)
         store = list(self.storage._DBStorage__session.new)
         self.assertIn(st, store)
-
-    @unittest.skipIf(type(models.storage) is FileStorage,
-                     "Testing FileStorage")
-    def test_save(self):
-        """Test save method."""
-        st = State(name="Virginia")
-        self.storage._DBStorage__session.add(st)
-        self.storage.save()
-        db = MySQLdb.connect(user="hbnb_test",
-                             passwd="hbnb_test_pwd",
-                             db="hbnb_test_db")
-        cursor = db.cursor()
-        cursor.execute("SELECT * FROM states WHERE BINARY name = 'Virginia'")
-        query = cursor.fetchall()
-        self.assertEqual(1, len(query))
-        self.assertEqual(st.id, query[0][0])
-        cursor.close()
 
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")

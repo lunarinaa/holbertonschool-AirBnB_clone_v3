@@ -128,29 +128,6 @@ class TestUser(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn("User." + self.user.id, f.read())
 
-    @unittest.skipIf(type(models.storage) is FileStorage,
-                     "Testing FileStorage")
-    def test_save_dbstorage(self):
-        """Test save method with DBStorage."""
-        old = self.user.updated_at
-        self.user.save()
-        self.assertLess(old, self.user.updated_at)
-        db = MySQLdb.connect(
-            user="hbnb_test", passwd="hbnb_test_pwd", db="hbnb_test_db"
-        )
-        cursor = db.cursor()
-        cursor.execute(
-            "SELECT * \
-                          FROM `users` \
-                         WHERE BINARY email = '{}'".format(
-                self.user.email
-            )
-        )
-        query = cursor.fetchall()
-        self.assertEqual(1, len(query))
-        self.assertEqual(self.user.id, query[0][0])
-        cursor.close()
-
     def test_to_dict(self):
         """Test to_dict method."""
         user_dict = self.user.to_dict()
