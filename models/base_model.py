@@ -55,3 +55,8 @@ class BaseModel:
         from models import storage
 
         storage.delete(self)
+
+    def __str__(self):
+        result = self.__dict__.copy()
+        result.pop("_sa_instance_state", None)
+        return "[{}] ({}) {}".format(type(self).__name__, self.id, result)
