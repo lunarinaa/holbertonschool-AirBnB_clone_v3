@@ -150,8 +150,8 @@ The HolbertonBnB console supports the following commands:
 ## Authors <a name = "authors"></a> ✍️
 
 - [@VoiceOfDarkness](https://github.com/VoiceOfDarkness) - Initial Work
-- [@Somed-1](https://github.com/Somed-1) - Test Support & great Person
+- [lunarinaa](https://github.com/lunarinaa) - Support
 
 ### Special Credits:
 
-> You really don't need to know, but here's the link if you're curious:[link](https://www.youtube.com/watch?v=uwmeH6Rnj2E)
+> You really don't need to know, but here's the link if you're curious:[link](https://www.youtube.com/watch?v=BJ1ctMVMTK0)
