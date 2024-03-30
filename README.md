@@ -25,11 +25,18 @@
 
 ## About <a name = "about"></a> 🧐
 
-The purpose of this project is to develop a command-line interpreter tailored for managing objects within an AirBnB-like application. By creating this interpreter, users can efficiently create, store, retrieve, update, and delete various entities such as users, states, cities, and places, all from the convenience of their terminal. The project encompasses the implementation of a robust object-oriented structure, with a parent class (BaseModel) handling fundamental functionalities like initialization and serialization. Through a streamlined serialization flow, the interpreter seamlessly converts object instances to dictionaries, JSON strings, and ultimately to files, ensuring efficient storage and retrieval of application data.
+This project presents a command-line interpreter designed for managing objects within an AirBnB-like application. Users can efficiently create, store, retrieve, update, and delete entities like users, states, cities, and places directly from their terminal.
+The core of the project is a robust object-oriented structure featuring a parent class (BaseModel) that handles essential functionalities such as initialization and serialization. A streamlined serialization process allows the interpreter to seamlessly convert object instances to dictionaries, JSON strings, and ultimately to files for efficient data storage and retrieval.
 
 ![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone_v2/blob/master/assets/image.png)
 
-This project serves as the foundation for the larger goal of building a fully functional AirBnB clone web application. By establishing a solid groundwork including object classes, serialization mechanisms, and storage engines, future phases of the project such as HTML/CSS templating, database integration, API development, and front-end implementation can be built upon with ease. Additionally, comprehensive unit tests are provided to validate the functionality of each component, ensuring the reliability and robustness of the application throughout its development lifecycle. Ultimately, this project aims to deliver a powerful yet user-friendly tool for managing AirBnB-like data, laying the groundwork for a seamless and immersive web experience for both hosts and guests.
+### New Feature: DBStorage
+
+This updated version introduces DBStorage, a new storage mechanism that leverages a MySQL database for persisting application data. By setting the environment variable `HBNB_TYPE_STORAGE=db`, the application utilizes a `DBStorage` instance to interact with the database. This instance connects to the MySQL server using credentials and database information specified in environment variables (`HBNB_MYSQL_USER`, `HBNB_MYSQL_PWD`, `HBNB_MYSQL_HOST`, and `HBNB_MYSQL_DB`).
+With DBStorage, any changes made to objects through the command-line interface are automatically reflected in the MySQL database, ensuring data persistence and consistency. SQLAlchemy facilitates connections and queries to the database.
+Note: Before using DBStorage, ensure the relevant databases (`hbnb_dev_db` and `hbnb_test_db`) are created and configured on the MySQL server. The provided scripts (`setup_mysql_dev.sql` and `setup_mysql_test.sql`) can be used for this purpose.
+This project serves as a crucial foundation for building a fully functional AirBnB clone web application. By establishing a solid groundwork with object classes, serialization mechanisms, and now database integration through DBStorage, future development phases like HTML/CSS templating, API development, and front-end implementation can be seamlessly built upon this base. Comprehensive unit tests continue to ensure the reliability and robustness of the application throughout its development lifecycle.
+Ultimately, this project delivers a powerful and user-friendly tool for managing AirBnB-like data, paving the way for a smooth and immersive web experience for both hosts and guests.
 
 ## Getting Started <a name = "getting_started"></a> 🏁
 
