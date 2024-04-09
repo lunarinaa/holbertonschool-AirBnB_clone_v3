@@ -1,4 +1,4 @@
-#!/usr/bin/pyhon3
+#!/usr/bin/python3
 """Starting flask web application"""
 from flask import Flask
 from flask import render_template
@@ -43,7 +43,7 @@ def html_display(n):
     return render_template('5-number.html', n=n)
 
 
-@app.route('/number_odd_or_even/<n>', strict_slashes=False)
+@app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def odd_even(n):
     """Displays an HTML page only if n is an integer"""
     return render_template('6-number_odd_or_even.html', n=n)
