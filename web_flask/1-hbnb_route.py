@@ -1,5 +1,6 @@
+#!/usr/bin/python3
 from flask import Flask
-"""Starting a Flask web application"""
+"""starting flask web app"""
 
 app = Flask(__name__)
 """object of Flask class"""
@@ -7,8 +8,12 @@ app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def display():
-    """method to display hello """
     return 'Hello HBNB!'
+
+
+@app.route('/hbnb', strict_slashes=False)
+def hbnb_display():
+    return 'HBNB'
 
 
 if __name__ == "__main__":
