@@ -2,6 +2,7 @@
 from flask import Flask, render_template
 from models import storage
 from models.state import State
+from models.city import City
 
 app = Flask(__name__)
 
@@ -10,14 +11,14 @@ def display():
     states = storage.all(State)
     return render_template('9-states.html', states=states)
 
-@app.route('/states/<id>')
-def display(id):
-    for state in storage.all(State).values():
-        if state.id == id:
-            return render_template('9-states.html', states=states)
-    return render_template('9-states.html')
-
-
+@app.route('/states/<id>', strict_slashes=False)
+def display_state(id):
+    state = storage.all(State).get(id)
+    if state:
+        return render_template('9-states.html', state=state)
+    else:
+        return render_template('9-states.html')   
+    
 
 
 @app.teardown_appcontext
