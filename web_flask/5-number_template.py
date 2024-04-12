@@ -1,4 +1,4 @@
-#!/usr/bin/pyhon3
+#!/usr/bin/python3
 """Starting flask web application"""
 from flask import Flask
 from flask import render_template
