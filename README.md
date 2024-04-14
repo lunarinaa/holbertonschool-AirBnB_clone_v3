@@ -147,11 +147,3 @@ The HolbertonBnB console supports the following commands:
 
 ![](https://github.com/VoiceOfDarkness/holbertonschool-AirBnB_clone/blob/main/assets/update.gif?raw=true)
 
-## Authors <a name = "authors"></a> ✍️
-
-- [@VoiceOfDarkness](https://github.com/VoiceOfDarkness) - Initial Work
-- [lunarinaa](https://github.com/lunarinaa) - Support
-
-### Special Credits:
-
-> You really don't need to know, but here's the link if you're curious:[link](https://www.youtube.com/watch?v=BJ1ctMVMTK0)
