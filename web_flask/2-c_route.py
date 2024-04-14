@@ -21,7 +21,7 @@ def hbnb_display():
 @app.route('/c/<text>', strict_slashes=False)
 def c_display(text):
     """Display methodfor the route"""
-    return f'C {text.replace('_', ' ')}'
+    return 'C {}'.format(text.replace('_', ' '))
 
 
 if __name__ == '__main__':
