@@ -4,21 +4,23 @@ from flask import Flask
 
 
 app = Flask(__name__)
-"""oblect of Flask"""
 
 
 @app.route('/', strict_slashes=False)
 def display():
+    """Display methodfor the route"""
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
 def hbnb_display():
+    """Display methodfor the route"""
     return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
 def c_display(text):
+    """Display methodfor the route"""
     return f'C {text.replace('_', ' ')}'
 
 
