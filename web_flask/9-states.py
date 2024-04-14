@@ -26,6 +26,7 @@ def display_state(id):
 
 @app.teardown_appcontext
 def teardown(exc):
+    """Removes the current SQLalchemy session"""
     storage.close()
 
 if __name__ == "__main__":
