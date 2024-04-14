@@ -21,20 +21,20 @@ def hbnb_display():
 @app.route('/c/<text>', strict_slashes=False)
 def c_display(text):
     """Displays C followed with text"""
-    return f'C {text.replace('_', ' ')}'
+    return 'C {}'.format(text.replace('_', ' '))
 
 
 @app.route('/python/<text>', strict_slashes=False)
 @app.route('/python', strict_slashes=False)
 def python_display(text="is cool"):
     """Displays Python followed with text"""
-    return f'Python {text.replace('_', ' ')}'
+    return 'Python {}'.format(text.replace('_', ' '))
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def num_display(n):
     """Displays is a number if integer is passed"""
-    return f'{n} is a number'
+    return '{} is a number'.format(n)
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
