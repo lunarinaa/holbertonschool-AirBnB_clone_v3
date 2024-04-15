@@ -10,17 +10,16 @@ app = Flask(__name__)
 @app.route('/states', strict_slashes=False)
 def display():
     """Display method"""
-    states = storage.all(State)
+    states = storage.all('State')
     return render_template('9-states.html', states=states)
 
 @app.route('/states/<id>', strict_slashes=False)
 def display_state(id):
     """Display method"""
-    state = storage.all(State).get(id)
-    if state:
-        return render_template('9-states.html', state=state)
-    else:
-        return render_template('9-states.html')   
+    or state in storage.all("State").values():
+        if state.id == id:
+            return render_template("9-states.html", state=state)
+    return render_template("9-states.html")
     
 
 
