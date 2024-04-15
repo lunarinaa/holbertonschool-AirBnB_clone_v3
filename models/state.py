@@ -15,12 +15,12 @@ class State(BaseModel, Base):
     __tablename__ = "states"
 
     name: Mapped[str] = mapped_column(String(128), nullable=False)
-    cities: Mapped["City"] = relationship("City", backref="state",
-                                          cascade="delete")
+    cities: Mapped[list["City"]] = relationship("City", backref="state",
+                                                cascade="delete")
     if getenv("HBNB_TYPE_STORAGE") != "db":
         @property
         def cities(self):
-            """Gets the list of cities linked to the current State"""
+            """Get a list of all linked City objects."""
             city_list = []
             for city in list(models.storage.all(City).values()):
                 if city.state_id == self.id:
