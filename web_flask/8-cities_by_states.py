@@ -10,11 +10,13 @@ app = Flask(__name__)
 
 @app.route('/cities_by_states', strict_slashes=False)
 def display_cities_by_states():
-    """Displays an HTML page"""
-    states = sorted(storage.all("State").values(), key=lambda st: st.name)
+    """Display a HTML page with a list of all State objects and their cities"""
+    states = storage.all(State).values()
     for state in states:
-        state.cities = sorted(state.cities, key=lambda city: city.name)
-    return render_template("8-cities_by_states.html", states=states)
+        if hasattr(state, 'cities') and isinstance(state.cities, list):
+            state.cities = sorted(state.cities, key=lambda city: city.name)
+    return render_template('8-cities_by_states.html', states=states)
+
 
 
 @app.teardown_appcontext
@@ -24,4 +26,4 @@ def teardown(exc):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5100)
