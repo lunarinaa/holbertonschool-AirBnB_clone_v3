@@ -25,3 +25,13 @@ def get_city(city_id):
     if the_city == []:
         abort(404)
     return jsonify(the_city[0])
+
+@app_views.route('/cities/<city_id>', methods=['DELETE'])
+def delete_city(city_id):
+    """Deletes a City object"""
+    the_city = storage.get(City, city_id)
+    if the_city is None:
+        abort(404)
+    storage.delete(the_city)
+    storage.save()
+    return jsonify({}), 200
