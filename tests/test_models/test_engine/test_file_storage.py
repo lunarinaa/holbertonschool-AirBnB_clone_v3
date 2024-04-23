@@ -177,6 +177,27 @@ class TestFileStorage(unittest.TestCase):
         except Exception:
             self.fail
 
+# updated
+    def test_get_existing_object(self):
+        user_id = '123'
+        user = self.storage.get(User, user_id)
+        self.assertIsNotNone(user)
+        self.assertEqual(user.id, user_id)
+
+    def test_get_nonexisting_object(self):
+        nonexisting_id = '999'
+        user = self.storage.get(User, nonexisting_id)
+        self.assertIsNone(user)
+
+    def test_count_all_objects(self):
+        total_objects = self.storage.count()
+        self.assertTrue(total_objects >= 0)
+
+    def test_count_objects_by_class(self):
+        total_users = self.storage.count(User)
+        total_places = self.storage.count(Place)
+        self.assertTrue(total_users >= 0)
+        self.assertTrue(total_places >= 0)
 
 if __name__ == "__main__":
     unittest.main()
