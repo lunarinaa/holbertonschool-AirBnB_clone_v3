@@ -22,28 +22,16 @@ def get_amenities():
 #         abort(404)
 #     return jsonify(amenity.to_dict())
 
-# @app_views.route('/amenities/<amenity_id>', methods=['GET'])
-# def get_amenity(amenity_id):
-#      """Retrieves a Amenity object"""
-#      amenities = storage.all("Amenity").values()
-#      for amenity in amenities:
-#          if amenity.id == amenity_id:
-#              return jsonify(amenity.to_dict())
-#          else:
-#              abort(404)
-#      return jsonify(amenity.to_dict())
-
 @app_views.route('/amenities/<amenity_id>', methods=['GET'])
 def get_amenity(amenity_id):
-    '''Retrieves an Amenity object'''
-    all_amenities = storage.all("Amenity").values()
-    amenity_obj = [obj.to_dict() for obj in all_amenities
-                   if obj.id == amenity_id]
-    if amenity_obj == []:
-        abort(404)
-    return jsonify(amenity_obj[0])
-
-
+     """Retrieves a Amenity object"""
+     amenities = storage.all("Amenity").values()
+     for amenity in amenities:
+         if amenity.id == amenity_id:
+             return jsonify(amenity.to_dict())
+         else:
+             abort(404)
+     return jsonify(amenity.to_dict())
              
 
 
