@@ -33,6 +33,7 @@ def delete_amenity(amenity_id):
     storage.save()
     return jsonify({}), 200
 
+# need to be revised
 @app_views.route('/amenities', methods=['POST'])
 def create_amenity():
     """Creates an Amenity"""
@@ -45,3 +46,16 @@ def create_amenity():
     storage.new(new_amenity)
     storage.save()
     return jsonify(new_amenity.to_dict()), 201
+
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'])
+def update_amenity(amenity_id):
+    """Updates a Amenity object"""
+    amenity = storage.get(Amenity, amenity_id)
+    if amenity is None:
+        abort(404)
+    data = request.get_json()
+    if not data:
+        abort(400, 'Not a JSON')
+    amenity.name = data.get('name', amenity.name)
+    storage.save()
+    return jsonify(amenity.to_dict()), 200
