@@ -73,19 +73,37 @@ def create_state():
 
 
 
+# @app_views.route('/states/<state_id>', methods=['PUT'])
+# def updates_state(state_id):
+#     """Updates a State object"""
+#     states = storage.all("State").values()
+#     state_object = [object.to_dict() for object in states
+#                     if object.id == state_id]
+#     if state_object == []:
+#         abort(404)
+#     if not request.get_json():
+#         abort(400, 'Not a JSON')
+#     state_object[0]['name'] = request.json['name']
+#     for object in states:
+#         if object.id == state_id:
+#             object.name = request.json['name']
+#     storage.save()
+#     return jsonify(state_object[0]), 200
+
 @app_views.route('/states/<state_id>', methods=['PUT'])
 def updates_state(state_id):
     """Updates a State object"""
-    states = storage.all("State").values()
-    state_object = [object.to_dict() for object in states
-                    if object.id == state_id]
-    if state_object == []:
-        abort(404)
-    if not request.get_json():
-        abort(400, 'Not a JSON')
-    state_object[0]['name'] = request.json['name']
-    for object in states:
-        if object.id == state_id:
-            object.name = request.json['name']
-    storage.save()
-    return jsonify(state_object[0]), 200
+    try:
+        data = request.get_json()
+        the_state = storage.get(State, state_id)
+        if the_state is None:
+            abort(404)
+        if not data:
+            abort(400, description='Not a JSON')
+        if 'name' not in data:
+            abort(400, description='Missing name')
+        the_state.name = data['name']
+        storage.save()
+        return jsonify(the_state.to_dict()), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
