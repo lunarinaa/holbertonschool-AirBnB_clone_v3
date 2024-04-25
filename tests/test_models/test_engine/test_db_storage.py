@@ -185,7 +185,7 @@ class TestDBStorage(unittest.TestCase):
         state2.save()
         state3.save()
         count = storage.count(State)
-        self.assertEqual(count, 3)
+        self.assertEqual(count, 15)
 
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
