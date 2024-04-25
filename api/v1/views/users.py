@@ -37,18 +37,23 @@ def delete_user(user_id):
 @app_views.route('/users/', methods=['POST'])
 def create_user():
     """Creates a User"""
-    data = request.get_json()
-    if not data:
-        abort(400, 'Not a JSON')
-    if 'email' not in data:
-        abort(400, 'Missing email')
-    if 'password' not in data:
-        abort(400, 'Missing password')
-    new_user = User(**data)
-    storage.new(new_user)
-    storage.save()
-    return jsonify(new_user.to_dict()), 201
-
+    try:
+        data = request.get_json()
+        if not data:
+            abort(400, 'Not a JSON')
+        if 'email' not in data:
+            abort(400, 'Missing email')
+        if 'password' not in data:
+            abort(400, 'Missing password')
+        new_user = User(**data)
+        storage.new(new_user)
+        storage.save()
+        return jsonify(new_user.to_dict()), 201
+    except Exception as e:
+        if '404 Not Found' in str(e):
+            return jsonify({'error': str(e)}), 404
+        else:
+            return jsonify({'error': str(e)}), 400
 
 @app_views.route('/users/<user_id>', methods=['PUT'])
 def update_user(user_id):
