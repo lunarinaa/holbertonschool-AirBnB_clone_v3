@@ -179,9 +179,14 @@ class TestDBStorage(unittest.TestCase):
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_count(self):
+        state1 = State(name="California")
+        state2 = State(name="New York")
         storage = DBStorage()
+        storage.new(state1)
+        storage.new(state2)
+        storage.save()
         state_count = storage.count(State)
-        self.assertTrue(state_count >= 0)
+        self.assertEqual(state_count, 2)
 
 
 if __name__ == "__main__":
