@@ -21,7 +21,7 @@ def get_user(user_id):
         abort(404)
     return jsonify(user.to_dict())
 
-# need to be revised
+
 @app_views.route('/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
     """Deletes a User object"""
@@ -55,18 +55,24 @@ def create_user():
         else:
             return jsonify({'error': str(e)}), 400
 
+
 @app_views.route('/users/<user_id>', methods=['PUT'])
 def update_user(user_id):
     """Updates a User object"""
-    user = storage.get(User, user_id)
-    if user is None:
-        abort(404)
-    data = request.get_json()
-    if not data:
-        abort(400, 'Not a JSON')
-    # Update the User object with valid keys
-    for key, value in data.items():
-        if key not in ['id', 'email', 'created_at', 'updated_at']:
-            setattr(user, key, value)
-    storage.save()
-    return jsonify(user.to_dict()), 200
+    try:
+        user = storage.get(User, user_id)
+        if user is None:
+            abort(404)
+        data = request.get_json()
+        if not data:
+            abort(400, 'Not a JSON')
+        for key, value in data.items():
+            if key not in ['id', 'email', 'created_at', 'updated_at']:
+                setattr(user, key, value)
+        storage.save()
+        return jsonify(user.to_dict()), 200
+    except Exception as e:
+        if '404 Not Found' in str(e):
+            return jsonify({'error': str(e)}), 404
+        else:
+            return jsonify({'error': str(e)}), 400
