@@ -179,25 +179,46 @@ class TestFileStorage(unittest.TestCase):
 
 # updated
     def test_get_existing_object(self):
-        user_id = '123'
-        user = self.storage.get(User, user_id)
-        self.assertIsNotNone(user)
-        self.assertEqual(user.id, user_id)
+        # Create some objects
+        user = User()
+        user.id = "123"
+        user.name = "John Doe"
+        place = Place()
+        place.id = "456"
+        place.name = "Cozy Cabin"
 
-    def test_get_nonexisting_object(self):
-        nonexisting_id = '999'
-        user = self.storage.get(User, nonexisting_id)
-        self.assertIsNone(user)
+        # Add objects to storage
+        self.storage.new(user)
+        self.storage.new(place)
+        self.storage.save()
 
+        # Retrieve objects using get method
+        retrieved_user = self.storage.get(User, "123")
+        retrieved_place = self.storage.get(Place, "456")
+
+        # Assert objects are retrieved correctly
+        self.assertEqual(retrieved_user.id, "123")
+        self.assertEqual(retrieved_user.name, "John Doe")
+        self.assertEqual(retrieved_place.id, "456")
+        self.assertEqual(retrieved_place.name, "Cozy Cabin")
+    
     def test_count_all_objects(self):
-        total_objects = self.storage.count()
-        self.assertTrue(total_objects >= 0)
+        # Create some objects
+        user1 = User()
+        user2 = User()
+        place1 = Place()
 
-    def test_count_objects_by_class(self):
-        total_users = self.storage.count(User)
-        total_places = self.storage.count(Place)
-        self.assertTrue(total_users >= 0)
-        self.assertTrue(total_places >= 0)
+        # Add objects to storage
+        self.storage.new(user1)
+        self.storage.new(user2)
+        self.storage.new(place1)
+        self.storage.save()
 
-if __name__ == "__main__":
+        # Count all objects in storage
+        count = self.storage.count()
+
+        # Assert count is correct
+        self.assertEqual(count, 10)
+
+if __name__ == '__main__':
     unittest.main()

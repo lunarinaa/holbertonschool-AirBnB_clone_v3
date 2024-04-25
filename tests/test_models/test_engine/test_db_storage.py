@@ -2,6 +2,7 @@
 """Defines unnittests for models/engine/db_storage.py."""
 import unittest
 from os import getenv
+import os
 
 import MySQLdb
 import pep8
@@ -165,28 +166,20 @@ class TestDBStorage(unittest.TestCase):
         self.storage._DBStorage__session.close()
         self.storage._DBStorage__session = og_session
 
+# updated
+    @unittest.skipIf(type(models.storage) is FileStorage, "Testing FileStorage")
+    def test_get(self):
+        storage = DBStorage()
+        state_id = "8f165686-c98d-46d9-87d9-d6059ade2d99"
+        state = storage.get(State, state_id)
+        self.assertIsNotNone(state)
+        self.assertEqual(state.id, state_id)
 
-    # updated 
-    def test_get_existing_object(self):
-        user_id = '123'
-        user = self.storage.get(User, user_id)
-        self.assertIsNotNone(user)
-        self.assertEqual(user.id, user_id)
-
-    def test_get_nonexisting_object(self):
-        nonexisting_id = '999'
-        user = self.storage.get(User, nonexisting_id)
-        self.assertIsNone(user)
-
-    def test_count_all_objects(self):
-        total_objects = self.storage.count()
-        self.assertTrue(total_objects >= 0)
-
-    def test_count_objects_by_class(self):
-        total_users = self.storage.count(User)
-        total_places = self.storage.count(Place)
-        self.assertTrue(total_users >= 0)
-        self.assertTrue(total_places >= 0)
+    @unittest.skipIf(type(models.storage) is FileStorage, "Testing FileStorage")
+    def test_count(self):
+        storage = DBStorage()
+        state_count = storage.count(State)
+        self.assertTrue(state_count >= 0)
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main()    

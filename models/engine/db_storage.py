@@ -111,7 +111,7 @@ class DBStorage:
         Closes the current database session.
         """
         self.__session.close()
-    
+
     # updated part
     def get(self, cls, id):
         """Retrieve an object based on class and ID"""
