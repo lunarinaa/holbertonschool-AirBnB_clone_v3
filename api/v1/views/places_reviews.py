@@ -26,7 +26,8 @@ def get_review(review_id):
         abort(404)
     return jsonify(review.to_dict())
 
-@app_views.route('/reviews/<review_id>', methods=["DELETE"])
+@app_views.route('/reviews/<review_id>', methods=["DELETE"],
+                 strict_slashes=False)
 def delete_review(review_id):
     """Deletes a Review object"""
     review = storage.get(Review, review_id)
@@ -36,7 +37,8 @@ def delete_review(review_id):
     storage.save()
     jsonify({}), 200
 
-@app_views.route('/places/<place_id>/reviews')
+@app_views.route('/places/<place_id>/reviews', methods=['POST'],
+                 strict_slashes=False)
 def create_review(place_id):
     """Creates a Review"""
     try:
