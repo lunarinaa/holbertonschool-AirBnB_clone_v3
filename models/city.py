@@ -16,5 +16,5 @@ class City(BaseModel, Base):
     state_id: Mapped[str] = mapped_column(
         String(60), ForeignKey("states.id"), nullable=False
     )
-    places: Mapped["Place"] = relationship("Place", backref="cities",
+    places: Mapped[list["Place"]] = relationship("Place", backref="cities",
                                            cascade="delete")
