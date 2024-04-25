@@ -16,12 +16,14 @@ def get_states():
 @app_views.route('/states/<state_id>', methods=['GET'])
 def get_state(state_id):
     """Retrieves a State object by its id"""
-    states = storage.all("State").values()
-    state_object = [object.to_dict() for object in states
-                    if object.id == state_id]
-    if state_object == []:
+    # states = storage.all("State").values()
+    # state_object = [object.to_dict() for object in states
+    #                 if object.id == state_id]
+    # if state_object == []:
+    the_state = storage.get(State, state_id)
+    if the_state is None:
         abort(404)
-    return jsonify(state_object[0])
+    return jsonify(the_state.to_dict())
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'])
