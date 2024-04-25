@@ -76,13 +76,16 @@ def create_place(city_id):
 def update_place(place_id):
     """Updates a Place object"""
     try:
+        place = storage.get(Place, place_id)
+        if place is None:
+            abort(404, 'Place not found')
         data = request.get_json()
         if not data:
             abort(400, 'Not a JSON')
-        place = storage.get(Place, place_id)
-        if place is None:
-            abort(404)
-        place.name = data.get('name', place.name)
+        for key, value in data.items():
+            if key not in ['id', 'user_id', 'city_id',
+                           'created_at', 'updated_at']:
+                setattr(place, key, value)
         storage.save()
         return jsonify(place.to_dict()), 200
     except Exception as e:
