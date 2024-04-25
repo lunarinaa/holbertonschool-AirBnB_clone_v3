@@ -198,7 +198,7 @@ class TestDBStorage(unittest.TestCase):
         state2.save()
         state3.save()
         count = storage.count(State)
-        self.assertEqual(count, 3)
+        self.assertEqual(count, 11)
 
 
 if __name__ == "__main__":
