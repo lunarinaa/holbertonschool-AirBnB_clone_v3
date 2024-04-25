@@ -58,8 +58,10 @@ def create_city(state_id):
         storage.save()
         return jsonify(new_city.to_dict()), 201
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
-
+        if '404 Not Found' in str(e):
+            return jsonify({'error': str(e)}), 404
+        else:
+            return jsonify({'error': str(e)}), 400
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
 def update_city(city_id):
