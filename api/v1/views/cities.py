@@ -39,7 +39,6 @@ def delete_city(city_id):
     return jsonify({}), 200
 
 
-# works locally doesn't pass checker
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
 @app_views.route('/states/<state_id>/cities/', methods=['POST'])
 def create_city(state_id):
@@ -62,6 +61,7 @@ def create_city(state_id):
             return jsonify({'error': str(e)}), 404
         else:
             return jsonify({'error': str(e)}), 400
+
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
 def update_city(city_id):
