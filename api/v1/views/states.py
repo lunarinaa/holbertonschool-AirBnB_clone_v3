@@ -106,4 +106,7 @@ def updates_state(state_id):
         storage.save()
         return jsonify(the_state.to_dict()), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
+        if '404 Not Found' in str(e):
+            return jsonify({'error': str(e)}), 404
+        else:
+            return jsonify({'error': str(e)}), 400
