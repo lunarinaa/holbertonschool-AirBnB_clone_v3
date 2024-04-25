@@ -52,15 +52,36 @@ def create_city(state_id):
     storage.save()
     return jsonify(new_city.to_dict()), 201
 
-@app_views.route('cities/<city_id>', methods=['PUT'])
+# @app_views.route('cities/<city_id>', methods=['PUT'])
+# def update_city(city_id):
+#     """Updates a City object"""
+#     data = request.get_json()
+#     the_city = storage.get("City", city_id)
+#     if not data:
+#         abort(400, 'Not a JSON')
+#     if the_city is None:
+#         abort(404)
+#     the_city.name = data.get('name', the_city.name)
+#     storage.save()
+#     return jsonify(the_city.to_dict()), 200
+
+@app_views.route('/cities/<city_id>', methods=['PUT'])
 def update_city(city_id):
     """Updates a City object"""
-    data = request.get_json()
-    the_city = storage.get("City", city_id)
-    if not data:
-        abort(400, 'Not a JSON')
-    if the_city is None:
-        abort(404)
-    the_city.name = data.get('name', the_city.name)
-    storage.save()
-    return jsonify(the_city.to_dict()), 200
+    try:
+        data = request.get_json()
+        the_city = storage.get("City", city_id)
+        if the_city is None:
+            abort(404)
+        if not data:
+            abort(400, description='Not a JSON')
+        if 'name' not in data:
+            abort(400, description='Missing name')
+        the_city.name = data['name']
+        storage.save()
+        return jsonify(the_city.to_dict()), 200
+    except Exception as e:
+        if '404 Not Found' in str(e):
+            return jsonify({'error': str(e)}), 404
+        else:
+            return jsonify({'error': str(e)}), 400
