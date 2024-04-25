@@ -39,23 +39,41 @@ def delete_city(city_id):
     return jsonify({}), 200
 
 
-# works locally doesn't pass checker
+# # works locally doesn't pass checker
+# @app_views.route('/states/<state_id>/cities', methods=['POST'])
+# def create_city(state_id):
+#     """Creates a City"""
+#     data = request.get_json()
+#     the_state = storage.get(State, state_id)
+#     if not data:
+#         abort(400, 'Not a JSON')
+#     if the_state is None:
+#         abort(404)
+#     if 'name' not in data:
+#         abort(400, 'Missing name')
+#     new_city = City(name=data['name'], state_id=state_id)
+#     storage.new(new_city)
+#     storage.save()
+#     return jsonify(new_city.to_dict()), 201
+
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
+@app_views.route('/states/<state_id>/cities/', methods=['POST'])
 def create_city(state_id):
-    """Creates a City"""
-    data = request.get_json()
-    the_state = storage.get(State, state_id)
-    if not data:
+    '''Creates a City'''
+    if not request.get_json():
         abort(400, 'Not a JSON')
-    if the_state is None:
-        abort(404)
-    if 'name' not in data:
+    if 'name' not in request.get_json():
         abort(400, 'Missing name')
-    new_city = City(name=data['name'], state_id=state_id)
+    all_states = storage.all("State").values()
+    state_obj = [obj.to_dict() for obj in all_states if obj.id == state_id]
+    if state_obj == []:
+        abort(404)
+    cities = []
+    new_city = City(name=request.json['name'], state_id=state_id)
     storage.new(new_city)
     storage.save()
-    return jsonify(new_city.to_dict()), 201
-
+    cities.append(new_city.to_dict())
+    return jsonify(cities[0]), 201
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
 def update_city(city_id):
