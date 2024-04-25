@@ -7,6 +7,7 @@ from models import storage
 from models.city import City
 from models.state import State
 
+
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
 def get_cities(state_id):
     """Retrieves the list of all City objects"""
@@ -16,6 +17,7 @@ def get_cities(state_id):
     cities = [city.to_dict() for city in state.cities]
     return jsonify(cities)
 
+
 @app_views.route('/cities/<city_id>', methods=['GET'])
 def get_city(city_id):
     """Retrieves a City object."""
@@ -24,6 +26,7 @@ def get_city(city_id):
     if the_city == []:
         abort(404)
     return jsonify(the_city[0])
+
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'])
 def delete_city(city_id):
@@ -35,7 +38,8 @@ def delete_city(city_id):
     storage.save()
     return jsonify({}), 200
 
-# need to be revised
+
+# works locally doesn't pass checker
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
 def create_city(state_id):
     """Creates a City"""
@@ -52,18 +56,6 @@ def create_city(state_id):
     storage.save()
     return jsonify(new_city.to_dict()), 201
 
-# @app_views.route('cities/<city_id>', methods=['PUT'])
-# def update_city(city_id):
-#     """Updates a City object"""
-#     data = request.get_json()
-#     the_city = storage.get("City", city_id)
-#     if not data:
-#         abort(400, 'Not a JSON')
-#     if the_city is None:
-#         abort(404)
-#     the_city.name = data.get('name', the_city.name)
-#     storage.save()
-#     return jsonify(the_city.to_dict()), 200
 
 @app_views.route('/cities/<city_id>', methods=['PUT'])
 def update_city(city_id):
