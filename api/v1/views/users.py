@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""users"""
 from flask import jsonify, abort, request
 from models import storage
 from models.user import User
