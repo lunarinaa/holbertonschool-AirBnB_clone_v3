@@ -179,16 +179,15 @@ class TestDBStorage(unittest.TestCase):
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_count(self):
-        # Create and add State objects directly to the session
-        with models.storage._session() as session:
-            state1 = State(name="California")
-            state2 = State(name="New York")
-            session.add(state1)
-            session.add(state2)
-            session.commit()
-            state_count = models.storage.count(State)
-            # Assert that the count is correct
-            self.assertEqual(state_count, 2)
+        """test that new adds an object to the database"""
+        initial_count = models.storage.count()
+        self.assertEqual(models.storage.count("Blah"), 0)
+        new_state = State(name="Florida")
+        new_state.save()
+        new_user = User(email="bob@foobar.com", password="password")
+        new_user.save()
+        self.assertEqual(models.storage.count("State"), initial_count + 1)
+        self.assertEqual(models.storage.count(), initial_count + 2)
 
 
 if __name__ == "__main__":
