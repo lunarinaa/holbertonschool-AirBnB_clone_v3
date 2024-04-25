@@ -171,11 +171,13 @@ class TestDBStorage(unittest.TestCase):
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_get(self):
-        storage = DBStorage()
         state_id = "8f165686-c98d-46d9-87d9-d6059ade2d99"
-        state = storage.get(State, state_id)
-        self.assertIsNotNone(state)
-        self.assertEqual(state.id, state_id)
+        state_name = "Louisiana"
+        state = State(id=state_id, name=state_name)
+        state.save()
+        retrieved_state = storage.get(State, state_id)
+        self.assertIsNotNone(retrieved_state)
+        self.assertEqual(retrieved_state.name, state_name)
 
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
