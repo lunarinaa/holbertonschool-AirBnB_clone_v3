@@ -40,7 +40,8 @@ def delete_place(place_id):
     return jsonify({})
 
 
-@app_views.route('/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places', methods=['POST'],
+                 strict_slashes=False)
 def create_place(city_id):
     """Creates a Place"""
     try:
@@ -70,7 +71,8 @@ def create_place(city_id):
             return jsonify({'error': str(e)}), 400
 
 
-@app_views.route('/places/<place_id>', methods=['PUT'])
+@app_views.route('/places/<place_id>', methods=['PUT']
+                 strict_slashes=False)
 def update_place(place_id):
     """Updates a Place object"""
     try:
