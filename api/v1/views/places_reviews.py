@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """reviews"""
 
+
 from flask import jsonify, abort, request
 from models import storage
 from models.place import Place
@@ -8,6 +9,7 @@ from models.city import City
 from models.user import User
 from models.review import Review
 from api.v1.views import app_views
+
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET'])
 def get_reviews(place_id):
@@ -18,13 +20,15 @@ def get_reviews(place_id):
     reviews = [review.to_dict() for review in place.reviews]
     return jsonify(reviews)
 
+
 @app_views.route('/reviews/<review_id>', methods=['GET'])
 def get_review(review_id):
     """Retrieves a Review object"""
-    review = storage.get(Review,review_id)
+    review = storage.get(Review, review_id)
     if review is None:
         abort(404)
     return jsonify(review.to_dict())
+
 
 @app_views.route('/reviews/<review_id>', methods=["DELETE"],
                  strict_slashes=False)
@@ -35,7 +39,8 @@ def delete_review(review_id):
         abort(404)
     storage.delete(review)
     storage.save()
-    jsonify({}), 200
+    return jsonify({}), 200
+
 
 @app_views.route('/places/<place_id>/reviews', methods=['POST'],
                  strict_slashes=False)
@@ -65,6 +70,7 @@ def create_review(place_id):
             return jsonify({'error': str(e)}), 404
         else:
             return jsonify({'error': str(e)}), 400
+
 
 @app_views.route('/reviews/<review_id>', methods=['PUT'])
 def update_review(review_id):
