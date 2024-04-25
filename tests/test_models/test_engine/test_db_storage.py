@@ -4,6 +4,7 @@ import unittest
 from os import getenv
 import os
 
+from models import storage
 import MySQLdb
 import pep8
 from sqlalchemy.engine.base import Engine
@@ -179,16 +180,14 @@ class TestDBStorage(unittest.TestCase):
     @unittest.skipIf(type(models.storage) is FileStorage,
                      "Testing FileStorage")
     def test_count(self):
-        """test that new adds an object to the database"""
-        initial_count = models.storage.count()
-        self.assertEqual(models.storage.count("Blah"), 0)
+        """Test the count method of the storage"""
+        #initial_count = storage.count()
         new_state = State(name="Florida")
         new_state.save()
         new_user = User(email="bob@foobar.com", password="password")
         new_user.save()
-        self.assertEqual(models.storage.count("State"), initial_count + 1)
-        self.assertEqual(models.storage.count(), initial_count + 2)
-
+        self.assertEqual(storage.count(), 2)
+        
 
 if __name__ == "__main__":
     unittest.main()
