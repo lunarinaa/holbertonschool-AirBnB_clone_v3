@@ -181,13 +181,15 @@ class TestDBStorage(unittest.TestCase):
                      "Testing FileStorage")
     def test_count(self):
         """Test the count method of the storage"""
-        #initial_count = storage.count()
-        new_state = State(name="Florida")
-        new_state.save()
-        new_user = User(email="bob@foobar.com", password="password")
-        new_user.save()
-        self.assertEqual(storage.count(), 2)
-        
+        state1 = State(name="California")
+        state2 = State(name="New York")
+        state3 = State(name="Texas")
+        state1.save()
+        state2.save()
+        state3.save()
+        count = storage.count(State)
+        self.assertEqual(count, 3)
+
 
 if __name__ == "__main__":
     unittest.main()
