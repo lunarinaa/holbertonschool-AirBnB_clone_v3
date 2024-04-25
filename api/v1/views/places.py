@@ -15,6 +15,8 @@ def get_places(city_id):
     if city is None:
         abort(404)
     places = [place.to_dict() for place in city.places]
+    if not places:
+        return jsonify([]) 
     return jsonify(places)
 
 @app_views.route('/places/<place_id>', methods=['GET'])
@@ -71,7 +73,7 @@ def update_place(place_id):
     try:
         data = request.get_json()
         if not data:
-            abort(404, 'Not a JSON')
+            abort(400, 'Not a JSON')
         place = storage.get(Place, place_id)
         if place is None:
             abort(404)
