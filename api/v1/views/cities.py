@@ -36,7 +36,7 @@ def delete_city(city_id):
     return jsonify({}), 200
 
 # need to be revised
-@app_views.route('states/<state_id>/cities', methods=['POST'])
+@app_views.route('/states/<state_id>/cities', methods=['POST'])
 def create_city(state_id):
     """Creates a City"""
     data = request.get_json()
