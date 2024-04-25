@@ -167,7 +167,8 @@ class TestDBStorage(unittest.TestCase):
         self.storage._DBStorage__session = og_session
 
 # updated
-    @unittest.skipIf(type(models.storage) is FileStorage, "Testing FileStorage")
+    @unittest.skipIf(type(models.storage) is FileStorage,
+                     "Testing FileStorage")
     def test_get(self):
         storage = DBStorage()
         state_id = "8f165686-c98d-46d9-87d9-d6059ade2d99"
@@ -175,11 +176,13 @@ class TestDBStorage(unittest.TestCase):
         self.assertIsNotNone(state)
         self.assertEqual(state.id, state_id)
 
-    @unittest.skipIf(type(models.storage) is FileStorage, "Testing FileStorage")
+    @unittest.skipIf(type(models.storage) is FileStorage,
+                     "Testing FileStorage")
     def test_count(self):
         storage = DBStorage()
         state_count = storage.count(State)
         self.assertTrue(state_count >= 0)
 
+
 if __name__ == "__main__":
-    unittest.main()    
+    unittest.main()

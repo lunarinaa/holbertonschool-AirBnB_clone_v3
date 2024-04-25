@@ -201,7 +201,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(retrieved_user.name, "John Doe")
         self.assertEqual(retrieved_place.id, "456")
         self.assertEqual(retrieved_place.name, "Cozy Cabin")
-    
+
     def test_count_all_objects(self):
         # Create some objects
         user1 = User()
@@ -219,6 +219,7 @@ class TestFileStorage(unittest.TestCase):
 
         # Assert count is correct
         self.assertEqual(count, 10)
+
 
 if __name__ == '__main__':
     unittest.main()
