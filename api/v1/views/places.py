@@ -71,7 +71,7 @@ def create_place(city_id):
             return jsonify({'error': str(e)}), 400
 
 
-@app_views.route('/places/<place_id>', methods=['PUT']
+@app_views.route('/places/<place_id>', methods=['PUT'],
                  strict_slashes=False)
 def update_place(place_id):
     """Updates a Place object"""
