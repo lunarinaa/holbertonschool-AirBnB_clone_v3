@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""amenities"""
+"""Module containing routes to manage amenities associated with places."""
 
 from api.v1.views import app_views
 from flask import jsonify, abort, request
@@ -7,7 +7,8 @@ from models import storage
 from models.amenity import Amenity
 
 
-@app_views.route('/amenities', methods=['GET'])
+@app_views.route('/amenities', methods=['GET'],
+                 strict_slashes=False)
 def get_amenities():
     """Retrieves the list of all Amenity objects"""
     amenities = storage.all(Amenity).values()
@@ -15,7 +16,8 @@ def get_amenities():
     return jsonify(amenities_list)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET'])
+@app_views.route('/amenities/<amenity_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_amenity(amenity_id):
     """Retrieves a Amenity object"""
     amenity = storage.get(Amenity, amenity_id)
@@ -24,7 +26,8 @@ def get_amenity(amenity_id):
     return jsonify(amenity.to_dict())
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['DELETE'])
+@app_views.route('/amenities/<amenity_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_amenity(amenity_id):
     """Deletes a Amenity object:"""
     amenity = storage.get(Amenity, amenity_id)
@@ -35,8 +38,8 @@ def delete_amenity(amenity_id):
     return jsonify({}), 200
 
 
-@app_views.route('/amenities', methods=['POST'])
-@app_views.route('/amenities/', methods=['POST'])
+@app_views.route('/amenities', methods=['POST'],
+                 strict_slashes=False)
 def create_amenity():
     """Creates an Amenity"""
     try:
@@ -56,7 +59,8 @@ def create_amenity():
             return jsonify({'error': str(e)}), 400
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['PUT'])
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_amenity(amenity_id):
     """Updates a Amenity object"""
     try:

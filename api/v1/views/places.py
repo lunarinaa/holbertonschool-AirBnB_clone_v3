@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""places"""
+"""Module containing routes to manage places associated with cities."""
 
 from flask import jsonify, abort, request
 from models import storage

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""reviews"""
+"""Module containing routes to manage reviews associated with places."""
 
 
 from flask import jsonify, abort, request
@@ -11,7 +11,8 @@ from models.review import Review
 from api.v1.views import app_views
 
 
-@app_views.route('/places/<place_id>/reviews', methods=['GET'])
+@app_views.route('/places/<place_id>/reviews', methods=['GET'],
+                 strict_slashes=False)
 def get_reviews(place_id):
     """Retrieves the list of all Review objects of a Place"""
     place = storage.get(Place, place_id)
@@ -21,7 +22,8 @@ def get_reviews(place_id):
     return jsonify(reviews)
 
 
-@app_views.route('/reviews/<review_id>', methods=['GET'])
+@app_views.route('/reviews/<review_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_review(review_id):
     """Retrieves a Review object"""
     review = storage.get(Review, review_id)
@@ -72,7 +74,8 @@ def create_review(place_id):
             return jsonify({'error': str(e)}), 400
 
 
-@app_views.route('/reviews/<review_id>', methods=['PUT'])
+@app_views.route('/reviews/<review_id>', methods=['PUT'],
+                 strict_slashes=False)
 def update_review(review_id):
     """Updates a Review object"""
     try:
